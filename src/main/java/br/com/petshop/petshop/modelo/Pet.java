@@ -20,6 +20,7 @@ public class Pet {
 	private Long id;
 	private String nome;
 	private String especie;
+	private String raca;
 	
 	
 	@ManyToOne
@@ -29,9 +30,10 @@ public class Pet {
 	public Pet() {}
 	
 	public Pet(PetForm form) {
-		//this.cliente.setId(form.getIdCliente());
-		this.setNome(form.getNome());
-		this.setEspecie(form.getEspecie());
+		this.cliente.setId(form.getIdCliente());
+		this.nome = form.getNome();
+		this.especie = form.getEspecie();
+		this.raca = form.getRaca();
 	}
 	
 	public Long getId() {
@@ -65,4 +67,13 @@ public class Pet {
 	public String getEspecie() {
 		return this.especie;
 	}
+	
+	public void setRaca(String raca) {
+		this.raca = raca;
+	}
+	
+	public String getRaca() {
+		return this.raca;
+	}
+
 }

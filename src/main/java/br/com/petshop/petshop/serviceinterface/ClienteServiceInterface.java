@@ -2,18 +2,18 @@ package br.com.petshop.petshop.serviceinterface;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import br.com.petshop.petshop.dto.ClienteDto;
+import br.com.petshop.petshop.form.ClienteForm;
 
-import br.com.petshop.petshop.modelo.Cliente;
 
 
-@Service
 public interface ClienteServiceInterface {
 
-	public boolean salvar(Cliente cliente) ;
-	public boolean atualizar(Cliente cliente) ;
-	public boolean deletar(Cliente cliente);
-	public Cliente consultar(long id);
-	public List<Cliente> listar(long id) ;
-	public List<Cliente> listar();
+	public boolean salvar(ClienteForm clienteForm) ;
+	public boolean atualizar(Long id, ClienteForm clienteForm) ;
+	public boolean deletar(ClienteForm clienteForm);
+	public ClienteDto consultar(long id);
+	public List<ClienteDto> listar(String nome) ;
+	public List<ClienteDto> listar();
+	public ClienteDto consultar(ClienteForm clienteForm);
 }

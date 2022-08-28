@@ -92,6 +92,14 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
 	
 	
 }

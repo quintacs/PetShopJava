@@ -1,7 +1,6 @@
 package br.com.petshop.petshop.modelo;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,25 +10,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import br.com.petshop.petshop.form.AgendamentoForm;
 
 @Entity
 public class Agendamento {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; 
 	
 	@Column(name = "data_agendamento")
 	private Timestamp dataAgendamento;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
 	@ManyToMany
-	List<Servico> servicos;
+	@JoinColumn(name = "servico_id")
+	private List<Servico> servicos;
 	
+	public Agendamento() {}
+	
+	public Agendamento(AgendamentoForm agendamentoForm) {
+
+		this.cliente = agendamentoForm.getCliente();
+		this.servicos = agendamentoForm.getServicos();
+		this.dataAgendamento = agendamentoForm.getDataAgendamentoTimestamp();
+		
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -52,6 +65,14 @@ public class Agendamento {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
 	}
 	
 	

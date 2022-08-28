@@ -1,7 +1,6 @@
 package br.com.petshop.petshop.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.petshop.petshop.dto.ClienteDto;
 import br.com.petshop.petshop.form.ClienteForm;
-import br.com.petshop.petshop.modelo.Cliente;
 import br.com.petshop.petshop.serviceinterface.ClienteServiceInterface;
 
 @RestController 
@@ -30,51 +28,34 @@ public class ClienteController {
 	@Autowired
 	private ClienteServiceInterface clienteService;
 	
-	@Autowired
-	private Cliente cliente;
-	
+
 	@GetMapping
-	public ResponseEntity<List<ClienteDto>> lista() {//@PathVariable long id
-		List<ClienteDto> listClienteDto = new ArrayList<ClienteDto>();
-		//if (id == 0) {
-			List<Cliente> lsCliente = clienteService.listar();
+	public ResponseEntity<List<ClienteDto>> lista() {
+		
+		List<ClienteDto> listClienteDto  = clienteService.listar();
 			
-			if(!lsCliente.isEmpty()) {
-				
-				for (Cliente cliente : lsCliente) {
-					listClienteDto.add(new ClienteDto(cliente));
-				}
+			if(!listClienteDto.isEmpty()) {				
 				return  ResponseEntity.ok(listClienteDto);
-				
-			}else {
-				
+			}else {				
 				return ResponseEntity.notFound().build();
 			}
-			//return clienteService.listar();
-		/*} else {
-			List<Cliente> lsCliente = clienteService.listar(id);
-			for (Cliente cliente : lsCliente) {
-				listClienteDto.add(new ClienteDto(cliente));
-			}
-			return listClienteDto;
-			//return clienteService.listar(id);
-		}*/
 	}
 	
 	@PostMapping
 	public ResponseEntity<ClienteDto> cadastrar(@RequestBody @Valid ClienteForm form, UriComponentsBuilder uriBuilder) {
-		  cliente = new Cliente(form);
-		clienteService.salvar(cliente);
-		
-		URI uri = uriBuilder.path("/Clientes/{id}").buildAndExpand(cliente.getId()).toUri();
-		return ResponseEntity.created(uri).body(new ClienteDto(cliente));
+
+		clienteService.salvar(form);
+		ClienteDto clienteDto = clienteService.consultar(form);
+
+		URI uri = uriBuilder.path("/Clientes/{id}").buildAndExpand(clienteDto.getId()).toUri();
+		return ResponseEntity.created(uri).body(clienteDto);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteDto> detalhar(@PathVariable Long id) {
-			 cliente = clienteService.consultar(id);
-		if (cliente != null) {
-			return ResponseEntity.ok(new ClienteDto(cliente));
+		ClienteDto clienteDto = clienteService.consultar(id);
+		if (clienteDto != null) {
+			return ResponseEntity.ok(clienteDto);
 		}
 		
 		return ResponseEntity.notFound().build();
@@ -83,21 +64,16 @@ public class ClienteController {
 	@PutMapping("/{id}")
 	public ResponseEntity<ClienteDto> atualizar(@PathVariable Long id, @RequestBody @Valid ClienteForm form) {
 		
-		cliente = new Cliente(form);
-		cliente.setId(id);
-		
-		if (clienteService.atualizar(cliente) ) {
-			return ResponseEntity.ok(new ClienteDto(cliente));
+		if (clienteService.atualizar(id,form) ) {
+			return ResponseEntity.ok(clienteService.consultar(form));
 		}
-		
 		return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> remover(@PathVariable Long id ) {
-		 cliente = clienteService.consultar(id);
-		if (cliente != null) {
-			//clienteService.deletar(cliente);
+		ClienteDto clienteDto = clienteService.consultar(id);
+		if (clienteDto != null) {
 			return ResponseEntity.ok().build();
 		}
 		

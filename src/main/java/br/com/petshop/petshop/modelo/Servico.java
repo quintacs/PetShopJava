@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.petshop.petshop.form.ServicoForm;
+
 @Entity
 public class Servico {
 
@@ -13,6 +15,13 @@ public class Servico {
 	private Long id;
 	private String nome;
 	private String descicao;
+	
+	public Servico() {}
+	
+	public Servico(ServicoForm servicoForm) {
+		this.nome = servicoForm.getNome();
+		this.descicao = servicoForm.getDescicao();
+	}
 	
 	public Long getId() {
 		return id;

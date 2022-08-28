@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClienteForm {
-
+	
 	@NotNull @NotEmpty @Length(min = 5)
 	private String nome;
 	
