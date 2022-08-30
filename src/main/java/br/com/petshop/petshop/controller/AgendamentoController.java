@@ -30,7 +30,7 @@ public class AgendamentoController {
 	
 
 	@GetMapping
-	public ResponseEntity<List<AgendamentoDto>> lista() {
+	public ResponseEntity<List<AgendamentoDto>> listar() {
 		
 		List<AgendamentoDto> listAgendamentoDto  = agendamentoService.listar();
 			

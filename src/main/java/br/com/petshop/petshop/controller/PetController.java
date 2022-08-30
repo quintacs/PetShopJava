@@ -29,7 +29,7 @@ public class PetController {
 	private PetServiceInterface petService;
 	
 	@GetMapping
-	public ResponseEntity<List<PetDto>> lista() {
+	public ResponseEntity<List<PetDto>> listar() {
 		
 		List<PetDto> listPetDto = petService.listar();
 		

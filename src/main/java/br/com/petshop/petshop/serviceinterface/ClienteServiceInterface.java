@@ -2,6 +2,8 @@ package br.com.petshop.petshop.serviceinterface;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import br.com.petshop.petshop.dto.ClienteDto;
 import br.com.petshop.petshop.form.ClienteForm;
 
@@ -9,11 +11,12 @@ import br.com.petshop.petshop.form.ClienteForm;
 
 public interface ClienteServiceInterface {
 
-	public boolean salvar(ClienteForm clienteForm) ;
-	public boolean atualizar(Long id, ClienteForm clienteForm) ;
-	public boolean deletar(ClienteForm clienteForm);
-	public ClienteDto consultar(long id);
-	public List<ClienteDto> listar(String nome) ;
-	public List<ClienteDto> listar();
-	public ClienteDto consultar(ClienteForm clienteForm);
+	 boolean salvar(ClienteForm clienteForm) ;
+	 boolean atualizar(Long id, ClienteForm clienteForm) ;
+	 boolean deletar(ClienteForm clienteForm);
+	 ClienteDto consultar(long id);
+	 List<ClienteDto> listar(String nome) ;
+	 List<ClienteDto> listar();
+	 Page<ClienteDto> listar(int pagina, int quantidade);
+	 ClienteDto consultar(ClienteForm clienteForm);
 }

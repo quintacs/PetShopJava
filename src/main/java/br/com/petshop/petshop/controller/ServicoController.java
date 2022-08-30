@@ -30,7 +30,7 @@ public class ServicoController {
 	
 
 	@GetMapping
-	public ResponseEntity<List<ServicoDto>> lista() {
+	public ResponseEntity<List<ServicoDto>> listar() {
 		
 		List<ServicoDto> listServicoDto  = servicoService.listar();
 			
