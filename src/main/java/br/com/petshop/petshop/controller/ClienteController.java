@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.petshop.petshop.dto.ClienteDto;
 import br.com.petshop.petshop.form.ClienteForm;
+import br.com.petshop.petshop.form.validate.ClienteException;
 import br.com.petshop.petshop.serviceinterface.ClienteServiceInterface;
 
 @RestController 
@@ -32,17 +32,27 @@ public class ClienteController {
 	private ClienteServiceInterface clienteService;
 	
 
-	@GetMapping
-	public Page<ClienteDto> listar(@RequestParam int pagina, @RequestParam int quantidade) {
+	@GetMapping(path = "/listaPaginada")
+	public ResponseEntity<Page<ClienteDto>>  listar(@RequestParam int pagina, @RequestParam int quantidade) throws Exception {
 		
-		Page<ClienteDto> listClienteDto  = clienteService.listar (pagina, quantidade);
+		   if(quantidade < 1 ) {
+			   throw new ClienteException("A quantidade não pode ser menor que um ");
+			}
 			
-			if(!listClienteDto.isEmpty()) {				
-				return  listClienteDto;
-			} /*
-				 * else { return ResponseEntity.notFound().build(); }
-				 */
-			return null;
+			Page<ClienteDto> listClienteDto  = clienteService.listar (pagina, quantidade);
+				
+				if(!listClienteDto.isEmpty()) {				
+					return  ResponseEntity.ok(listClienteDto);
+				}
+				
+		
+		  return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping(path = "/lista")
+	public ResponseEntity<List<ClienteDto>> lista(){
+		
+		return ResponseEntity.ok(clienteService.listar()) ;
 	}
 	
 	@PostMapping

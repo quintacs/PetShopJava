@@ -1,6 +1,7 @@
 package br.com.petshop.petshop.modelo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -37,8 +38,15 @@ public class Agendamento {
 	
 	public Agendamento(AgendamentoForm agendamentoForm) {
 
-		this.cliente = agendamentoForm.getCliente();
-		this.servicos = agendamentoForm.getServicos();
+		this.cliente = new Cliente();
+		cliente.setId(agendamentoForm.getIdCliente());
+		
+		this.servicos = new ArrayList<>();
+		for(Long idServico: agendamentoForm.getServicos()) {
+			Servico servico = new Servico();
+			servico.setId(idServico);
+			servicos.add(servico);
+		}
 		this.dataAgendamento = agendamentoForm.getDataAgendamentoTimestamp();
 		
 	}

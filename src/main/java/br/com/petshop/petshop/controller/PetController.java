@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.petshop.petshop.dto.PetDto;
 import br.com.petshop.petshop.form.PetForm;
+import br.com.petshop.petshop.serviceinterface.ClienteServiceInterface;
 import br.com.petshop.petshop.serviceinterface.PetServiceInterface;
 
 @RestController

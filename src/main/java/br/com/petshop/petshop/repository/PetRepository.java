@@ -20,10 +20,10 @@ public interface PetRepository extends JpaRepository<Pet, Long>{
 	
 	List<Pet> findByEspecie(String especie);
 	
-	@Query(value = "SELECT p FROM pet p  WHERE p.cliente_id = :id AND p.nome = :nome" , nativeQuery = true)
+	@Query(value = "SELECT p.cliente_id, p.id, p.nome, p.especie, p.raca FROM pet p  WHERE p.cliente_id = :id AND p.nome = :nome" , nativeQuery = true)
 	List<Pet> findByIdClienteAndNomePet( @Param("id") long id, @Param("nome") String nome);
 
-	@Query(value = "SELECT p FROM pet p  WHERE p.cliente_id = :id AND p.nome = :nome" , nativeQuery = true)
+	@Query(value = "SELECT p.cliente_id, p.id, p.nome, p.especie, p.raca FROM pet p  WHERE p.cliente_id = :id AND p.nome = :nome" , nativeQuery = true)
 	Pet buscaPorIdClienteAndNomePet( @Param("id") long id, @Param("nome") String nome);
 	
 	@Modifying
@@ -34,10 +34,10 @@ public interface PetRepository extends JpaRepository<Pet, Long>{
 	@Query(value = "DELETE pet where id = :id", nativeQuery = true)
 	void delete(@Param("id")long id);
 	
-	@Query(value = "SELECT p FROM pet p  WHERE p.nome = :nome AND p.especie = :especie" , nativeQuery = true)
+	@Query(value = "SELECT p.cliente_id, p.id, p.nome, p.especie, p.raca FROM pet p  WHERE p.nome = :nome AND p.especie = :especie" , nativeQuery = true)
 	Pet consultarPet( @Param("nome") String nome, @Param("especie") String especie);
 	
-	@Query(value = "SELECT p FROM pet p  WHERE p.nome = :nome AND p.especie = :especie" , nativeQuery = true)
+	@Query(value = "SELECT p.cliente_id, p.id, p.nome, p.especie, p.raca FROM pet p  WHERE p.nome = :nome AND p.especie = :especie" , nativeQuery = true)
 	List<Pet> listarPet( @Param("nome") String nome, @Param("especie") String especie);
 
 	List<Pet> findByClienteId(long id);

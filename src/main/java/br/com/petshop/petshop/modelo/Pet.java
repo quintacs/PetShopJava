@@ -30,6 +30,7 @@ public class Pet {
 	public Pet() {}
 	
 	public Pet(PetForm form) {
+		this.cliente = new Cliente();
 		this.cliente.setId(form.getIdCliente());
 		this.nome = form.getNome();
 		this.especie = form.getEspecie();

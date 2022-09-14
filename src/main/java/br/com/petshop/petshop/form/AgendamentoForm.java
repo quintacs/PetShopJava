@@ -13,29 +13,29 @@ import br.com.petshop.util.DateUtil;
 public class AgendamentoForm {
 
 	@NotNull 
-	private Cliente cliente;
+	private Long idCliente;
 	
 	@NotNull
 	@NotEmpty
-	private List<Servico> servicos;
+	private List<Long> idServicos;
 	
 	@NotNull
 	private String dataAgendamento;
 
-	public Cliente getCliente() {
-		return cliente;
+	public Long getIdCliente() {
+		return idCliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setIdCliente(Long cliente) {
+		this.idCliente = cliente;
 	}
 
-	public List<Servico> getServicos() {
-		return servicos;
+	public List<Long> getServicos() {
+		return idServicos;
 	}
 
-	public void setIdServicos(List<Servico> servicos) {
-		this.servicos = servicos;
+	public void setIdServicos(List<Long> servicos) {
+		this.idServicos = servicos;
 	}
 
 	public String getDataAgendamento() {

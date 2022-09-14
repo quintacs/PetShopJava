@@ -47,7 +47,7 @@ public class AgendamentoController {
 		agendamentoService.salvar(form);
 		AgendamentoDto agendamentoDto = agendamentoService.consultar(form);
 
-		URI uri = uriBuilder.path("/Clientes/{id}").buildAndExpand(agendamentoDto.getId()).toUri();
+		URI uri = uriBuilder.path("/Agendamentos/{id}").buildAndExpand(agendamentoDto.getId()).toUri();
 		return ResponseEntity.created(uri).body(agendamentoDto);
 	}
 	

@@ -27,6 +27,7 @@ public class ClienteService implements ClienteServiceInterface{
 	public boolean salvar(ClienteForm clienteForm) {
 		
 		clienteRepository.save(new Cliente(clienteForm));
+		clienteRepository.flush();
 		return true;
 	}
 	
@@ -66,14 +67,14 @@ public class ClienteService implements ClienteServiceInterface{
 	
 	public Page<ClienteDto> listar(int pagina, int quantidade) {
 		
-		Pageable paginacao = PageRequest.of(pagina, quantidade);
-		
-		if(quantidade == 0) {
+		/*if(quantidade == 0) {
 			quantidade = 1;
 		}
-		if(pagina == 0 ) {
+		/*if(pagina == 0 ) {
 			pagina = 1;
-		}
+		}*/
+		
+		Pageable paginacao = PageRequest.of(pagina, quantidade);
 		
 		Page<ClienteDto> clienteDto = clienteRepository.findAll(paginacao).map(ClienteDto::new);
 		return clienteDto;

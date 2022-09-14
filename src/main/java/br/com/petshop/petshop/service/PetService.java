@@ -7,11 +7,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.petshop.petshop.dto.ClienteDto;
 import br.com.petshop.petshop.dto.PetDto;
 import br.com.petshop.petshop.form.PetForm;
 import br.com.petshop.petshop.modelo.Cliente;
 import br.com.petshop.petshop.modelo.Pet;
+import br.com.petshop.petshop.repository.ClienteRepository;
 import br.com.petshop.petshop.repository.PetRepository;
+import br.com.petshop.petshop.serviceinterface.ClienteServiceInterface;
 import br.com.petshop.petshop.serviceinterface.PetServiceInterface;
 
 @Service
@@ -20,10 +23,13 @@ public class PetService implements PetServiceInterface{
 	@Autowired
 	private PetRepository petRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	public void salvar(PetForm petForm) {
 		
 		petRepository.save(new Pet(petForm));
+		petRepository.flush();
 	}
 	
 	public void deletar(PetForm petForm) {
@@ -99,6 +105,8 @@ public class PetService implements PetServiceInterface{
 	public PetDto consultar(PetForm petForm) {
 		
 		Pet pet = petRepository.consultarPet(petForm.getNome(), petForm.getEspecie());
+		Cliente cliente = clienteRepository.getById(petForm.getIdCliente());
+		pet.setCliente(cliente);
 		
 		Optional<Pet> optionalPet = petRepository.findById(pet.getId());
 		if (optionalPet.isPresent()) {

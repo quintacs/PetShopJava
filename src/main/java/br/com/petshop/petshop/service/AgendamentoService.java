@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.petshop.petshop.dto.AgendamentoDto;
 import br.com.petshop.petshop.form.AgendamentoForm;
 import br.com.petshop.petshop.modelo.Agendamento;
+import br.com.petshop.petshop.modelo.Servico;
 import br.com.petshop.petshop.repository.AgendamentoRepository;
+import br.com.petshop.petshop.repository.ClienteRepository;
+import br.com.petshop.petshop.repository.ServicoRepository;
 import br.com.petshop.petshop.serviceinterface.AgendamentoServiceInterface;
 
 @Service
@@ -19,6 +22,12 @@ public class AgendamentoService implements AgendamentoServiceInterface{
 	@Autowired
 	private AgendamentoRepository agendamentoRepository;
 
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ServicoRepository servicoRepository;
+	
 	@Override
 	public boolean salvar(AgendamentoForm agendamentoForm) {
 		
@@ -29,7 +38,7 @@ public class AgendamentoService implements AgendamentoServiceInterface{
 	@Override
 	public boolean deletar(AgendamentoForm agendamentoForm) {
 		
-		Agendamento agendamento = agendamentoRepository.consultaAgendamentoCliente(agendamentoForm.getCliente().getId());
+		Agendamento agendamento = agendamentoRepository.consultaAgendamentoCliente(agendamentoForm.getIdCliente());
 		
 		Optional<Agendamento> optionalAgendamento = agendamentoRepository.findById(agendamento.getId());
 		if (optionalAgendamento.isPresent()) {
@@ -78,8 +87,14 @@ public class AgendamentoService implements AgendamentoServiceInterface{
 		Optional<Agendamento> optionalAgendamento = agendamentoRepository.findById(id);
 		if (optionalAgendamento.isPresent()) {
 			Agendamento vAgendamento = agendamentoRepository.getOne(id);
-			vAgendamento.setCliente(agendamentoForm.getCliente());
-			vAgendamento.setServicos(agendamentoForm.getServicos());
+			vAgendamento.setCliente(clienteRepository.getById(agendamentoForm.getIdCliente()));
+			
+			List<Servico> lsServicos = new ArrayList<>();
+			for(Long idServico: agendamentoForm.getServicos()) {
+				lsServicos.add(servicoRepository.getOne(idServico));
+			}
+			vAgendamento.setServicos(lsServicos);
+			
 			vAgendamento.setDataAgendamento(agendamentoForm.getDataAgendamentoTimestamp());
 			agendamentoRepository.save(vAgendamento);
 			
@@ -93,7 +108,7 @@ public class AgendamentoService implements AgendamentoServiceInterface{
 	public AgendamentoDto consultar(AgendamentoForm agendamentoForm) {
 		
 		Agendamento agendamento = agendamentoRepository
-				.consultaAgendamentoCliente(agendamentoForm.getCliente().getId());
+				.consultaAgendamentoCliente(agendamentoForm.getIdCliente());
 
 		if (agendamento != null) {
 
