@@ -53,7 +53,9 @@ public class AgendamentoController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<AgendamentoDto> detalhar(@PathVariable Long id) {
+		
 		AgendamentoDto agendamentoDto = agendamentoService.consultar(id);
+		
 		if (agendamentoDto != null) {
 			return ResponseEntity.ok(agendamentoDto);
 		}

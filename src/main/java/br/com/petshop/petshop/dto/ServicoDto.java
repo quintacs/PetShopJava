@@ -6,7 +6,7 @@ public class ServicoDto {
 
 	private Long id;
 	private String nome;
-	private String descicao;
+	private String descricao;
 	
 	public ServicoDto() {}
 	
@@ -14,7 +14,7 @@ public class ServicoDto {
 		super();
 		this.id = servico.getId();
 		this.nome = servico.getNome();
-		this.descicao = servico.getDescicao();
+		this.descricao = servico.getDescricao();
 	}
 	
 	
@@ -30,10 +30,10 @@ public class ServicoDto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getDescicao() {
-		return descicao;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setDescicao(String descicao) {
-		this.descicao = descicao;
+	public void setDescicao(String descricao) {
+		this.descricao = descricao;
 	}
 }

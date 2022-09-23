@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.petshop.petshop.dto.ClienteDto;
@@ -25,6 +24,7 @@ public class ClienteService implements ClienteServiceInterface{
 	
 	
 	public boolean salvar(ClienteForm clienteForm) {
+		
 		
 		clienteRepository.save(new Cliente(clienteForm));
 		clienteRepository.flush();
@@ -121,5 +121,4 @@ public class ClienteService implements ClienteServiceInterface{
 		return false;
 	}
 
-	
 }

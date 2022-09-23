@@ -16,7 +16,7 @@ public class ServicoForm {
 	private String nome;
 	
 	@NotNull
-	private String descicao;
+	private String descricao;
 	
 	public Long getId() {
 		return id;
@@ -30,10 +30,10 @@ public class ServicoForm {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getDescicao() {
-		return descicao;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setDescicao(String descicao) {
-		this.descicao = descicao;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 }

@@ -14,15 +14,23 @@ import br.com.petshop.petshop.modelo.Agendamento;
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long>{
 
 	
-	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servico_id FROM agendamento a JOIN servico s on s.agendamento_id = a.id WHERE a.cliente_id = :id AND a.data_agendamento = :dataAgendamento" , nativeQuery = true)
-	Agendamento consultaAgendamento(@Param("id") Long id, @Param("dataAgendamento")Timestamp dataAgendamento );
+	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servicos_id, b.nome, b.descricao FROM agendamento a JOIN agendamento_servicos s on s.agendamento_id = a.id JOIN servico b on s.servicos_id = b.id WHERE a.data_agendamento = :dataAgendamento" , nativeQuery = true)
+	Agendamento consultaAgendamento( @Param("dataAgendamento")Timestamp dataAgendamento );
 
-	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servico_id FROM agendamento a JOIN servico s on s.agendamento_id = a.id WHERE a.cliente_id = :id " , nativeQuery = true)
-	Agendamento consultaAgendamentoCliente(@Param("id") Long id);
+	/*@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servicos_id, b.nome, b.descricao FROM agendamento a JOIN agendamento_servicos s on s.agendamento_id = a.id JOIN servico b on s.servicos_id = b.id WHERE a.cliente_id = :id " , nativeQuery = true)
+	Agendamento consultaAgendamentoCliente(@Param("id") Long id);*/
 	
-	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servico_id FROM agendamento a JOIN servico s on s.agendamento_id = a.id WHERE a.cliente_id = :id AND a.id = :idAgendamento" , nativeQuery = true)
-	Agendamento consultaAgendamento(@Param("id") Long id, @Param("idAgendamento")Long idAgendamento );
+	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servicos_id, b.nome, b.descricao FROM agendamento a JOIN agendamento_servicos s on s.agendamento_id = a.id JOIN servico b on s.servicos_id = b.id WHERE a.id = :idAgendamento" , nativeQuery = true)
+	Agendamento consultaAgendamento( @Param("idAgendamento")Long idAgendamento );
 	
-	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servico_id FROM agendamento a JOIN servico s on s.agendamento_id = a.id WHERE a.cliente_id = :id " , nativeQuery = true)
+	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servicos_id, b.nome, b.descricao FROM agendamento a JOIN agendamento_servicos s on s.agendamento_id = a.id JOIN servico b on s.servicos_id = b.id WHERE a.cliente_id = :id " , nativeQuery = true)
 	List<Agendamento> consultaAgendamentosCliente(@Param("id") Long id);
+	
+	@Query(value = "SELECT a.id, a.cliente_id, a.data_agendamento, s.servicos_id, b.nome, b.descricao FROM agendamento a JOIN agendamento_servicos s on s.agendamento_id = a.id JOIN servico b on s.servicos_id = b.id WHERE a.cliente_id = :id  AND a.id = :idAgendamento" , nativeQuery = true)
+	List<Agendamento> consultaAgendamentosClientePorData(@Param("id") Long id,  @Param("idAgendamento")Long idAgendamento);
+	
+	@Query(value = "SELECT a.id, a.data_agendamento, cliente_id FROM agendamento a WHERE a.id = :idAgendamento" , nativeQuery = true)
+	Agendamento consultarAgendamentoId(@Param("idAgendamento")Long id);
+	
+	
 }

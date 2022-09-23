@@ -34,7 +34,7 @@ public class ServicoService implements ServicoServiceInterface{
 		if (optionalServico.isPresent()) {
 			Servico servico = servicoRepository.getOne(id);
 			servico.setNome(servicoForm.getNome());
-			servico.setDescicao(servicoForm.getDescicao());
+			servico.setDescicao(servicoForm.getDescricao());
 			servicoRepository.save(servico);
 		}
 		return true;

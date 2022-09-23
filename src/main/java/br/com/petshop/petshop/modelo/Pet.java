@@ -7,11 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.springframework.stereotype.Component;
-
 import br.com.petshop.petshop.form.PetForm;
 
-@Component
+
 @Entity
 public class Pet {
 

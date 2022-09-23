@@ -14,13 +14,13 @@ public class Servico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String descicao;
+	private String descricao;
 	
 	public Servico() {}
 	
 	public Servico(ServicoForm servicoForm) {
 		this.nome = servicoForm.getNome();
-		this.descicao = servicoForm.getDescicao();
+		this.descricao = servicoForm.getDescricao();
 	}
 	
 	public Long getId() {
@@ -35,11 +35,11 @@ public class Servico {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getDescicao() {
-		return descicao;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setDescicao(String descicao) {
-		this.descicao = descicao;
+	public void setDescicao(String descricao) {
+		this.descricao = descricao;
 	}
 	
 }

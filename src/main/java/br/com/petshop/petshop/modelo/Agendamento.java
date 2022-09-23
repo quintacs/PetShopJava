@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import br.com.petshop.petshop.form.AgendamentoForm;
+import br.com.petshop.util.DateUtil;
 
 @Entity
 public class Agendamento {
@@ -38,17 +39,7 @@ public class Agendamento {
 	
 	public Agendamento(AgendamentoForm agendamentoForm) {
 
-		this.cliente = new Cliente();
-		cliente.setId(agendamentoForm.getIdCliente());
-		
-		this.servicos = new ArrayList<>();
-		for(Long idServico: agendamentoForm.getServicos()) {
-			Servico servico = new Servico();
-			servico.setId(idServico);
-			servicos.add(servico);
-		}
-		this.dataAgendamento = agendamentoForm.getDataAgendamentoTimestamp();
-		
+				parse(agendamentoForm);
 	}
 
 	public Long getId() {
@@ -83,5 +74,24 @@ public class Agendamento {
 		this.servicos = servicos;
 	}
 	
-	
+	private void parse(AgendamentoForm agendamentoForm) {
+		
+		try {
+			
+			this.cliente = new Cliente();
+			cliente.setId(agendamentoForm.getIdCliente());
+			
+			this.servicos = new ArrayList<>();
+			for(Long idServico: agendamentoForm.getIdServicos()) {
+				Servico servico = new Servico();
+				servico.setId(idServico);
+				servicos.add(servico);
+			}
+			this.dataAgendamento = DateUtil.getTimestampDMYHMS(agendamentoForm.getDataAgendamento());
+
+			
+		}catch (Exception e) {
+			System.out.println("erro "+e.getMessage());
+		}
+	}
 }

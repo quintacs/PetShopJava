@@ -36,7 +36,7 @@ public class DateUtil {
 
     public static String formatDMYHHMMSS(Date data)throws Exception{
         
-        df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
        return df.format(data);
    
 }
@@ -79,7 +79,7 @@ public class DateUtil {
        return new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(data).getTime());
    }
    
-   public static Timestamp getTimestamp(String data)throws Exception{
+   public static Timestamp getTimestampDMY(String data)throws Exception{
 	   
        if(data.equals("")||data==null)
            return null;
@@ -87,6 +87,15 @@ public class DateUtil {
        return new Timestamp(new SimpleDateFormat("dd/MM/yyyy").parse(data).getTime());
    }
    
+   public static Timestamp getTimestampDMYHMS(String data)throws Exception{
+	   
+       if(data.equals("")||data==null)
+           return null;
+         
+       return new Timestamp(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(data).getTime());
+   }
+   
+
    public static String getTimestamp(Timestamp timestamp)throws Exception{
        dateSQL = new java.sql.Date(timestamp.getTime());
         df = new SimpleDateFormat("dd/MM/yyyy");       
