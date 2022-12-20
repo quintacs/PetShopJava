@@ -18,6 +18,8 @@ public class PetForm {
 
 	private String especie;
 	
+	private String raca;
+	
 	public Long getIdCliente() {
 		return idCliente;
 	}
@@ -40,5 +42,13 @@ public class PetForm {
 	
 	public String getEspecie() {
 		return this.especie;
+	}
+
+	public String getRaca() {
+		return raca;
+	}
+
+	public void setRaca(String raca) {
+		this.raca = raca;
 	}
 }

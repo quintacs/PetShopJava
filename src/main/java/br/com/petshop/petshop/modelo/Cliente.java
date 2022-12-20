@@ -8,11 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.stereotype.Component;
-
 import br.com.petshop.petshop.form.ClienteForm;
 
-@Component
+
 @Entity
 public class Cliente {
 
@@ -26,7 +24,7 @@ public class Cliente {
 	private String celular;
 	private String email;
 	
-	public Cliente() {}
+	public Cliente() { }
 	
 	public Cliente(ClienteForm clienteForm) {
 		this.nome = clienteForm.getNome();
@@ -91,6 +89,14 @@ public class Cliente {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 	
 	

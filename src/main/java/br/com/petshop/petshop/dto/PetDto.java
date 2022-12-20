@@ -9,7 +9,7 @@ public class PetDto {
 	private String nome;
 	private String nomeCliente;
 	private String especie;
-	
+	private String raca;
 	
 	public PetDto(Pet pet) {
 		this.id = pet.getId();
@@ -17,6 +17,7 @@ public class PetDto {
 		this.nomeCliente = pet.getCliente().getNome();
 		this.idCliente = pet.getCliente().getId();
 		this.especie = pet.getEspecie();
+		this.raca = pet.getRaca();
 	}
 	
 	public Long getId() {
@@ -53,5 +54,13 @@ public class PetDto {
 	
 	public String getEspecie() {
 		return this.especie;
+	}
+	
+	public void setRaca(String raca) {
+		this.raca = raca;
+	}
+	
+	public String getRaca() {
+		return this.raca;
 	}
 }

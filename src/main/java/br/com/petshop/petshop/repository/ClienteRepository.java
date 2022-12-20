@@ -15,6 +15,14 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 	List<Cliente> findByNome(String nome);
 	
+	
+	
+	@Query(value = "SELECT c.id, c.nome, c.cpf, c.endereco, c.telefone, c.celular, c.email FROM cliente c  WHERE c.cpf = :cpf AND c.nome = :nome" , nativeQuery = true)
+	Cliente consultaCliente(@Param("cpf") String cpf, @Param("nome") String nome);
+	
+	@Query(value = "SELECT c.id, c.nome, c.cpf, c.endereco, c.telefone, c.celular, c.email FROM cliente c  WHERE c.nome = :nome" , nativeQuery = true)
+	Cliente consultaClienteNome( @Param("nome") String nome);
+	
 //	Cliente findByNome(String nome);
 	
 	
