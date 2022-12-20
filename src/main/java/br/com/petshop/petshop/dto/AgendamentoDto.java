@@ -1,17 +1,21 @@
 package br.com.petshop.petshop.dto;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import br.com.petshop.petshop.modelo.Agendamento;
 import br.com.petshop.petshop.modelo.Cliente;
 import br.com.petshop.petshop.modelo.Servico;
+import br.com.petshop.util.DateUtil;
 
 public class AgendamentoDto  {
 
 	
 	private Long id;
 	private Timestamp dataAgendamento;
+	
+	private String dataAgendamentoFormatada;
 	
 	private Long idCliente;
 	private String nomeCliente;
@@ -25,21 +29,7 @@ public class AgendamentoDto  {
 	public AgendamentoDto() {}
 	
 	public AgendamentoDto(Agendamento agendamento) {
-		this.id = agendamento.getId();
-		this.dataAgendamento = agendamento.getDataAgendamento();
-		
-		if(agendamento.getCliente()!=null && agendamento.getCliente().getId() != 0) {
-			
-			Cliente cli = agendamento.getCliente();
-			
-			this.idCliente = cli.getId();
-			this.nomeCliente = cli.getNome();
-			this.telefoneCliente = cli.getTelefone();
-			this.celularCliente = cli.getCelular();
-			this.emailCliente = cli.getEmail();
-		}
-		if(agendamento.getServicos() != null)
-			this.servicos =agendamento.getServicos();
+		parse(agendamento);
 	}
 
 
@@ -66,7 +56,16 @@ public class AgendamentoDto  {
 	public void setDataAgendamento(Timestamp dataAgendamento) {
 		this.dataAgendamento = dataAgendamento;
 	}
+	
+	public String getDataAgendamentoFormatada() {
+		return dataAgendamentoFormatada;
+	}
 
+	public void setDataAgendamentoFormatada(String dataAgendamentoFormatada) {
+		this.dataAgendamentoFormatada = dataAgendamentoFormatada;
+	}
+	
+	
 	public Long getIdCliente() {
 		return idCliente;
 	}
@@ -107,6 +106,31 @@ public class AgendamentoDto  {
 		this.emailCliente = emailCliente;
 	}
 	
-	
+	private void parse(Agendamento agendamento) {
+		
+		try {
+			
+			this.id = agendamento.getId();
+			this.dataAgendamento = agendamento.getDataAgendamento();
+			
+			this.dataAgendamentoFormatada = DateUtil.formatDMYHHMMSS(new Date(dataAgendamento.getTime()));
+			
+			if(agendamento.getCliente()!=null && agendamento.getCliente().getId() != 0) {
+				
+				Cliente cli = agendamento.getCliente();
+				
+				this.idCliente = cli.getId();
+				this.nomeCliente = cli.getNome();
+				this.telefoneCliente = cli.getTelefone();
+				this.celularCliente = cli.getCelular();
+				this.emailCliente = cli.getEmail();
+			}
+			if(agendamento.getServicos() != null)
+				this.servicos =agendamento.getServicos();
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
 }

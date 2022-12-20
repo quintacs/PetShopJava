@@ -1,6 +1,5 @@
 package br.com.petshop.petshop.form;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
