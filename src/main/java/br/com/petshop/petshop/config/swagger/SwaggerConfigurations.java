@@ -15,7 +15,7 @@ public class SwaggerConfigurations {
 	 * Para acessar a documentação na url digite IP:PORT/swagger-ui.html
 	 * 
 	 * localhost:8080/swagger-ui.html
-	 * x
+	 * 
 	 * */
 	
 	@Bean
