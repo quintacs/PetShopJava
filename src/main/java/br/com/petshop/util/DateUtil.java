@@ -51,6 +51,8 @@ public class DateUtil {
         calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, dias);
         return calendar;
+        
+        
    }
    
    public static Date somaDiasDate(int dias)  throws Exception{

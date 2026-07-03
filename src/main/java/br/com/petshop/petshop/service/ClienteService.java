@@ -48,21 +48,21 @@ public class ClienteService implements ClienteServiceInterface{
 		
 		Optional<Cliente> optionalCliente = clienteRepository.findById(id);
 		if (optionalCliente.isPresent()) {
-			Cliente vCliente = clienteRepository.getOne(id);
-			return new ClienteDto(vCliente);
+			Cliente clienteModelo = clienteRepository.getOne(id);
+			return new ClienteDto(clienteModelo);
 		}
 		return null;
 	}
 	
 	public List<ClienteDto> listar(String nome) {
 		
+		List<ClienteDto> clientesDto = new ArrayList<ClienteDto>();
 		Optional<Cliente> optionalCliente = Optional.ofNullable(clienteRepository.consultaClienteNome(nome));
 		if (optionalCliente.isPresent()) {
-			List<ClienteDto> clientesDto = new ArrayList<ClienteDto>();
 			clienteRepository.findByNome(nome).forEach(cliente -> clientesDto.add(new ClienteDto(cliente)));
 			return clientesDto;
 		}
-		return null;
+		return clientesDto;
 	}
 	
 	public Page<ClienteDto> listar(int pagina, int quantidade) {
@@ -98,7 +98,7 @@ public class ClienteService implements ClienteServiceInterface{
 		if (optionalCliente.isPresent()) {
 			return new ClienteDto(cliente);
 		}
-		return null;
+		return new ClienteDto(cliente);
 	}
 
 	@Override
